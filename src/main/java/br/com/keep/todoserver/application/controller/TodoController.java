@@ -35,10 +35,11 @@ public class TodoController {
     @DeleteMapping("/{id}")
     public ResponseEntity delete(@PathVariable Long id) {
         var todo = todoService.findById(id);
-        if(todo == null) {
+        if(todo.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NO_CONTENT)
                     .build();
         }
+        todoService.delete(todo.get());
         return ResponseEntity.ok(todo);
     }
 
